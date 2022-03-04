@@ -38,24 +38,24 @@ fn main() {
 
     writer.newln();
 
-    let mut base = writer.class("Base.Program", Class::ClassVisType::Public);
+    let mut program_class = writer.class("Base.Program", Class::ClassVisType::Public);
 
-    let mut mainb = writer.method("Main", Method::MethodVisType::Public);
-    mainb.is_entrypoint = true;
+    let mut main_method = writer.method("Main", Method::MethodVisType::Public);
+    main_method.is_entrypoint = true;
 
-    writer.op("ldstr", vec!["\"Hello, World!\"".to_string()], &mut mainb);
+    writer.op("ldstr", vec!["\"Hello, World!\"".to_string()], &mut main_method);
 
     writer.op(
         "call",
         vec!["void [mscorlib]System.Console::WriteLine(string)".to_string()],
-        &mut mainb,
+        &mut main_method,
     );
 
-    writer.op("ret", vec![], &mut mainb);
+    writer.op("ret", vec![], &mut main_method);
 
-    base.body.push(Box::new(mainb));
+    program_class.body.push(Box::new(main_method));
 
-    base.emit(&mut writer.result);
+    program_class.emit(&mut writer.result);
 
     //end
 
