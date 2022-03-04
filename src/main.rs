@@ -8,8 +8,8 @@ mod Method;
 
 mod Writer;
 
-use Class::{ClassType, ClassVisType};
-use Instruction::*;
+
+
 
 fn main() {
     let mut writer = Writer::IL::new();

@@ -70,7 +70,7 @@ impl IL {
             .push_str(format!("{}}}", self.indention.get()).as_str());
     }
     pub fn class(&mut self, class: &str, class_type: ClassVisType) -> ClassType {
-        let mut ctype = ClassType {
+        let ctype = ClassType {
             vis: class_type,
             name: String::from(class),
             body: Vec::new(),
@@ -82,7 +82,7 @@ impl IL {
         return ctype;
     }
     pub fn method(&mut self, name: &str, visibility: MethodVisType) -> MethodType {
-        let mut ctype = MethodType {
+        let ctype = MethodType {
             vis: visibility,
             name: String::from(name),
             body: Vec::new(),
