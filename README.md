@@ -4,6 +4,8 @@ I am just writing an IL writer for Rust so I can use it on my future programming
 
 I do plan to make it even easier to use, right now it's on github so I don't lose source or anything like that.
 
+This does use 'Microsoft (R) .NET Framework IL Assembler' to assemble the il output.
+
 example: 
 
 ```let mut writer = Writer::IL::new();
