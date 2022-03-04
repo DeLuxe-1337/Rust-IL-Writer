@@ -55,9 +55,7 @@ example:
 output result below
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
-    
-    ````
-    // This is my IL writer for my new language!
+// This is my IL writer for my new language!
 
 .assembly extern mscorlib {
     .publickeytoken = (B7 7A 5C 56 19 34 E0 89 )
@@ -78,6 +76,3 @@ output result below
         IL_2:    ret 
     }
 }
-
-    ````
-    
