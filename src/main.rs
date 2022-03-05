@@ -8,9 +8,6 @@ mod Method;
 
 mod Writer;
 
-
-
-
 fn main() {
     let mut writer = Writer::IL::new();
 
@@ -43,7 +40,11 @@ fn main() {
     let mut main_method = writer.method("Main", Method::MethodVisType::Public);
     main_method.is_entrypoint = true;
 
-    writer.op("ldstr", vec!["\"Hello, World!\"".to_string()], &mut main_method);
+    writer.op(
+        "ldstr",
+        vec!["\"Hello, World!\"".to_string()],
+        &mut main_method,
+    );
 
     writer.op(
         "call",
@@ -55,7 +56,7 @@ fn main() {
 
     program_class.body.push(Box::new(main_method));
 
-    program_class.emit(&mut writer.result);
+    Class::emit_class(&mut program_class, &mut writer.result);
 
     //end
 

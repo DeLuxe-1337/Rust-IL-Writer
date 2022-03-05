@@ -16,8 +16,8 @@ pub struct ClassType {
     pub indention: Indention,
 }
 
-impl ClassType {
-    pub fn emit(&mut self, result: &mut qwriter) {
+impl Type for ClassType {
+    fn emit(&mut self, result: &mut qwriter) {
         match self.vis {
             ClassVisType::Private => result.push_str(
                 format!("{}.class private {} {{", self.indention.get(), self.name).as_str(),
@@ -37,4 +37,8 @@ impl ClassType {
 
         result.push_str(format!("{}}}", self.indention.get()).as_str());
     }
+}
+
+pub fn emit_class(classt: &mut ClassType, result: &mut qwriter) {
+    classt.emit(result);
 }
