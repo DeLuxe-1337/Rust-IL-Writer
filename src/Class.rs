@@ -19,12 +19,10 @@ pub struct ClassType {
 impl Type for ClassType {
     fn emit(&mut self, result: &mut qwriter, indention: &mut Indention) {
         match self.vis {
-            ClassVisType::Private => result.push_str(
-                format!("{}.class private {} {{", indention.get(), self.name).as_str(),
-            ),
-            ClassVisType::Public => result.push_str(
-                format!("{}.class public {} {{", indention.get(), self.name).as_str(),
-            ),
+            ClassVisType::Private => result
+                .push_str(format!("{}.class private {} {{", indention.get(), self.name).as_str()),
+            ClassVisType::Public => result
+                .push_str(format!("{}.class public {} {{", indention.get(), self.name).as_str()),
         }
 
         indention.inc();
