@@ -70,10 +70,11 @@ impl IL {
         self.result
             .push_str(format!("{}}}", self.indention.get()).as_str());
     }
-    pub fn class(&mut self, class: &str, class_type: ClassVisType) -> ClassType {
+    pub fn class(&mut self, class_unjoined: Vec<&str>, class_type: ClassVisType) -> ClassType {
+        let class = class_unjoined.join(".");
         let ctype = ClassType {
             vis: class_type,
-            name: String::from(class),
+            name: String::from(class.clone()),
             body: Vec::new(),
             indention: self.indention.clone(),
         };
@@ -89,9 +90,9 @@ impl IL {
             body: Vec::new(),
             indention: self.indention.clone(),
             arguments: Vec::new(),
-            rettype: String::from("void"),
-            is_entrypoint: false,
-            is_managed: true,
+            rtype: String::from("void"),
+            entrypoint: false,
+            managed: true,
             is_static: true,
             maxstack: 8,
         };

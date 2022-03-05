@@ -15,18 +15,16 @@ pub struct MethodType {
     pub name: String,
     pub body: Vec<Box<dyn Type>>,
     pub arguments: Vec<String>,
-    pub rettype: String,
+    pub rtype: String,
     pub indention: Indention,
-    pub is_entrypoint: bool,
-    pub is_managed: bool,
+    pub entrypoint: bool,
+    pub managed: bool,
     pub is_static: bool,
     pub maxstack: usize,
 }
 
 impl Type for MethodType {
     fn emit(&mut self, result: &mut qwriter, indention: &mut Indention) {
-        indention.inc();
-
         let mut staticinsert = String::new();
 
         if self.is_static {
@@ -39,7 +37,7 @@ impl Type for MethodType {
                     "{}.method private {}{} {}({}) ",
                     indention.get(),
                     staticinsert,
-                    self.rettype,
+                    self.rtype,
                     self.name,
                     self.arguments.join(", ")
                 )
@@ -50,7 +48,7 @@ impl Type for MethodType {
                     "{}.method public {}{} {}({}) ",
                     indention.get(),
                     staticinsert,
-                    self.rettype,
+                    self.rtype,
                     self.name,
                     self.arguments.join(", ")
                 )
@@ -58,7 +56,7 @@ impl Type for MethodType {
             ),
         }
 
-        if self.is_managed {
+        if self.managed {
             result.push("cil managed ");
         }
 
@@ -66,7 +64,7 @@ impl Type for MethodType {
 
         indention.inc();
 
-        if self.is_entrypoint {
+        if self.entrypoint {
             result.push_str(format!("{}.entrypoint", indention.get()).as_str());
         }
 
@@ -84,7 +82,9 @@ impl Type for MethodType {
         indention.dec();
 
         result.push_str(format!("{}}}", indention.get()).as_str());
-
-        indention.dec();
     }
+}
+
+pub fn mscorlibfn(name: &str, returntype: &str, args: Vec<&str>) -> String {
+    return format!("{1} [mscorlib]{0}({2})", name, returntype, args.join(", ")).to_string();
 }
