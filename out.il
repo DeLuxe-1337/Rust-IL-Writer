@@ -11,11 +11,19 @@
 }
 
 .class public Base.Program {
-    .method public static void Main() cil managed {
-        .entrypoint
-        .maxstack 8
-        IL_0:    ldstr "Hello, World!"
-        IL_1:    call void [mscorlib]System.Console::WriteLine(string)
-        IL_2:    ret 
+        .method public static void Main() cil managed {
+            .entrypoint
+            .maxstack 8
+            IL_0:    ldstr "Hello, World!"
+            IL_1:    call void [mscorlib]System.Console::WriteLine(string)
+            IL_2:    ret 
+        }
+    .class public Base.Program.Test {
+            .method public static void Main() cil managed {
+                .maxstack 8
+                IL_0:    ldstr "Hello, World!"
+                IL_1:    call void [mscorlib]System.Console::WriteLine(string)
+                IL_2:    ret 
+            }
     }
 }

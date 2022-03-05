@@ -24,8 +24,8 @@ pub struct MethodType {
 }
 
 impl Type for MethodType {
-    fn emit(&mut self, result: &mut qwriter) {
-        self.indention.inc();
+    fn emit(&mut self, result: &mut qwriter, indention: &mut Indention) {
+        indention.inc();
 
         let mut staticinsert = String::new();
 
@@ -37,7 +37,7 @@ impl Type for MethodType {
             MethodVisType::Private => result.push(
                 format!(
                     "{}.method private {}{} {}({}) ",
-                    self.indention.get(),
+                    indention.get(),
                     staticinsert,
                     self.rettype,
                     self.name,
@@ -48,7 +48,7 @@ impl Type for MethodType {
             MethodVisType::Public => result.push(
                 format!(
                     "{}.method public {}{} {}({}) ",
-                    self.indention.get(),
+                    indention.get(),
                     staticinsert,
                     self.rettype,
                     self.name,
@@ -64,25 +64,27 @@ impl Type for MethodType {
 
         result.push_str("{");
 
-        self.indention.inc();
+        indention.inc();
 
         if self.is_entrypoint {
-            result.push_str(format!("{}.entrypoint", self.indention.get()).as_str());
+            result.push_str(format!("{}.entrypoint", indention.get()).as_str());
         }
 
-        result.push_str(format!("{}.maxstack {}", self.indention.get(), self.maxstack).as_str());
+        result.push_str(format!("{}.maxstack {}", indention.get(), self.maxstack).as_str());
 
         let mut il_current: usize = 0;
 
         for i in self.body.iter_mut() {
-            result.push(format!("{}IL_{}:    ", self.indention.get(), il_current).as_str());
-            i.emit(result);
+            result.push(format!("{}IL_{}:    ", indention.get(), il_current).as_str());
+            i.emit(result, indention);
 
             il_current += 1;
         }
 
-        self.indention.dec();
+        indention.dec();
 
-        result.push_str(format!("{}}}", self.indention.get()).as_str());
+        result.push_str(format!("{}}}", indention.get()).as_str());
+
+        indention.dec();
     }
 }

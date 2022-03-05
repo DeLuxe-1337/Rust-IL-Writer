@@ -17,28 +17,28 @@ pub struct ClassType {
 }
 
 impl Type for ClassType {
-    fn emit(&mut self, result: &mut qwriter) {
+    fn emit(&mut self, result: &mut qwriter, indention: &mut Indention) {
         match self.vis {
             ClassVisType::Private => result.push_str(
-                format!("{}.class private {} {{", self.indention.get(), self.name).as_str(),
+                format!("{}.class private {} {{", indention.get(), self.name).as_str(),
             ),
             ClassVisType::Public => result.push_str(
-                format!("{}.class public {} {{", self.indention.get(), self.name).as_str(),
+                format!("{}.class public {} {{", indention.get(), self.name).as_str(),
             ),
         }
 
-        self.indention.inc();
+        indention.inc();
 
         for i in self.body.iter_mut() {
-            i.emit(result);
+            i.emit(result, indention);
         }
 
-        self.indention.dec();
+        indention.dec();
 
-        result.push_str(format!("{}}}", self.indention.get()).as_str());
+        result.push_str(format!("{}}}", indention.get()).as_str());
     }
 }
 
 pub fn emit_class(classt: &mut ClassType, result: &mut qwriter) {
-    classt.emit(result);
+    classt.emit(result, &mut Indention::new());
 }

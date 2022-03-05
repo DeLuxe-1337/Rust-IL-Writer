@@ -11,7 +11,7 @@ pub struct Instruction {
 }
 
 impl Type for Instruction {
-    fn emit(&mut self, result: &mut qwriter) {
+    fn emit(&mut self, result: &mut qwriter, indention: &mut Indention) {
         result.push_str(format!("{} {}", self.name, self.operands.join(" ")).as_str());
     }
 }

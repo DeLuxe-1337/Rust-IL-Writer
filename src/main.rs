@@ -54,7 +54,15 @@ fn main() {
 
     writer.op("ret", vec![], &mut main_method);
 
-    program_class.body.push(Box::new(main_method));
+    program_class.body.push(Box::new(main_method.clone()));
+
+    let mut test_class = writer.class("Base.Program.Test", Class::ClassVisType::Public);
+
+    main_method.is_entrypoint = false;
+
+    test_class.body.push(Box::new(main_method));
+
+    program_class.body.push(Box::new(test_class));
 
     Class::emit_class(&mut program_class, &mut writer.result);
 

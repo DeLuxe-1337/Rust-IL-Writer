@@ -1,7 +1,8 @@
 use super::Writer::qwriter;
+use super::Indention::*;
 
 pub trait Type: TypeClone {
-    fn emit(&mut self, result: &mut qwriter);
+    fn emit(&mut self, result: &mut qwriter, indention: &mut Indention);
 }
 
 trait TypeClone {

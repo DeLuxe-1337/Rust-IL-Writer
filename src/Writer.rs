@@ -9,6 +9,7 @@ use std::io::prelude::*;
 use std::path::Path;
 use std::process::Command;
 
+#[derive(Clone)]
 pub struct qwriter {
     pub result: String,
 }
