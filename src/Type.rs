@@ -5,7 +5,7 @@ pub trait Type: TypeClone {
     fn emit(&mut self, result: &mut qwriter, indention: &mut Indention);
 }
 
-trait TypeClone {
+pub trait TypeClone {
     fn clone_box(&self) -> Box<dyn Type>;
 }
 
