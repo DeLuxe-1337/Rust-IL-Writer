@@ -11,3 +11,7 @@ For an example check src/main.rs and for output in the root find out.il
 links: 
 <a href="https://github.com/DeLuxe1337001/Rust-IL-Writer/blob/master/src/main.rs">main.rs</a>
 <a href="https://github.com/DeLuxe1337001/Rust-IL-Writer/blob/master/out.il">out.il</a>
+
+To use this as a dependency you can add this to your dependencies
+
+`il_writer = {git = "https://github.com/DeLuxe1337001/Rust-IL-Writer"}`
