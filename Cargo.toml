@@ -1,5 +1,5 @@
 [package]
-name = "IL-Writer"
+name = "il_writer"
 version = "0.1.0"
 edition = "2021"
 
