@@ -81,12 +81,19 @@ impl Type for MethodType {
 
             indention.inc();
 
-            for (i, (name, (ty, size))) in self.locals.clone().into_iter().enumerate() {
-                if i < self.locals.len() - 1 {
-                    result.push_str(format!("{}[{}] {} {},", indention.get(), size, ty, name).as_str());
-                }
-                else {
-                    result.push_str(format!("{}[{}] {} {}", indention.get(), size, ty, name).as_str());
+            let mut current_size: usize = 0;
+
+            while true {
+                for (i, (name, (ty, size))) in self.locals.clone().into_iter().enumerate() {
+                    if size == current_size {
+                        if i < self.locals.len() - 1 {
+                            result.push_str(format!("{}[{}] {} {},", indention.get(), size, ty, name).as_str());
+                        }
+                        else {
+                            result.push_str(format!("{}[{}] {} {}", indention.get(), size, ty, name).as_str());
+                        }
+                        current_size += 1;
+                    }
                 }
             }
 
