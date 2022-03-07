@@ -124,6 +124,7 @@ impl Type for MethodType {
     }
 }
 
+#[derive(PartialEq, Clone, Debug)]
 pub enum LocalType {
     Int32,
     String,
