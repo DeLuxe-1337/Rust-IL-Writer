@@ -114,12 +114,14 @@ impl Type for MethodType {
 
 pub enum LocalType {
     Int32,
+    String
 }
 
 pub fn new_local(name: String, ty: LocalType, index: usize, meth: &mut MethodType) {
     let mut type_string = String::new();
     match ty {
         LocalType::Int32 => type_string = "int32".to_string(),
+        LocalType::String => type_string = "string".to_string(),
     }
     
     meth.locals.insert(name, (type_string, index));
