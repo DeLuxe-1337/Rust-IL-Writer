@@ -97,6 +97,7 @@ impl IL {
             maxstack: 8,
             path: format!("{}::{}", class.name, name),
             locals: HashMap::new(),
+            localindex: 0,
         };
 
         return ctype;
