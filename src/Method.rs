@@ -93,7 +93,9 @@ impl Type for MethodType {
                         }
                         else {
                             result.push_str(format!("{}[{}] {} {}", indention.get(), size, ty, name).as_str());
-                            run = false;
+                            if current_size < self.locals.len() {
+                                run = false;
+                            }
                         }
                         current_size += 1;
                     }
