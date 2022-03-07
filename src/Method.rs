@@ -25,6 +25,9 @@ pub struct MethodType {
 }
 
 impl Type for MethodType {
+    fn get_name(&self) -> String {
+        return self.name.clone();
+    }
     fn emit(&mut self, result: &mut qwriter, indention: &mut Indention) {
         let mut staticinsert = String::new();
 

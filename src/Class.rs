@@ -17,6 +17,9 @@ pub struct ClassType {
 }
 
 impl Type for ClassType {
+    fn get_name(&self) -> String {
+        return self.name.clone();
+    }
     fn emit(&mut self, result: &mut qwriter, indention: &mut Indention) {
         match self.vis {
             ClassVisType::Private => result

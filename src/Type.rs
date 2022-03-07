@@ -3,6 +3,7 @@ use super::Writer::qwriter;
 
 pub trait Type: TypeClone {
     fn emit(&mut self, result: &mut qwriter, indention: &mut Indention);
+    fn get_name(&self) -> String;
 }
 
 pub trait TypeClone {
