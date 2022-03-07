@@ -23,7 +23,8 @@ pub struct MethodType {
     pub is_static: bool,
     pub maxstack: usize,
     pub path: String,
-    pub locals: HashMap<String, (String, usize)>
+    pub locals: HashMap<String, (String, usize)>,
+    pub localindex: usize,
 }
 
 impl Type for MethodType {
@@ -125,15 +126,17 @@ pub enum LocalType {
     Object
 }
 
-pub fn new_local(name: String, ty: LocalType, index: usize, meth: &mut MethodType) {
+pub fn new_local(name: String, ty: LocalType, meth: &mut MethodType) {
     let mut type_string = String::new();
     match ty {
         LocalType::Int32 => type_string = "int32".to_string(),
         LocalType::String => type_string = "string".to_string(),
         LocalType::Object => type_string = "object".to_string(),
     }
-    
-    meth.locals.insert(name, (type_string, index));
+
+    meth.locals.insert(name, (type_string, meth.localindex));
+
+    meth.localindex += 1;
 }
 
 pub fn get_local(name: &String, meth: &MethodType) -> (String, usize) {
