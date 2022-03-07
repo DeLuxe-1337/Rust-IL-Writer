@@ -15,8 +15,8 @@
         .entrypoint
         .maxstack 8
         .locals init (
-            [1] int32 absolute,
-            [0] int32 based
+            [0] int32 based,
+            [1] int32 absolute
         )
 
         IL_0:    ldstr "Hello, World!"

@@ -111,11 +111,11 @@ impl IL {
     }
     pub fn compile(&mut self) {
         if Path::new("out.il").exists() {
-            std::fs::remove_file("out.il").unwrap();
+            std::fs::remove_file("out.il").expect("Could not remove file");
         }
 
-        let mut file = File::create("out.il").unwrap();
-        file.write_all(self.result.result.as_bytes()).unwrap();
+        let mut file = File::create("out.il").expect("Unable to create file");
+        file.write_all(self.result.result.as_bytes()).expect("Unable to write to file");
 
         Command::new("ilasm-win\\ilasm")
             .arg("out.il")

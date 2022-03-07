@@ -83,8 +83,9 @@ impl Type for MethodType {
             indention.inc();
 
             let mut current_size: usize = 0;
+            let mut run = true;
 
-            while true {
+            while run == true {
                 for (i, (name, (ty, size))) in self.locals.clone().into_iter().enumerate() {
                     if size == current_size {
                         if i < self.locals.len() - 1 {
@@ -92,6 +93,7 @@ impl Type for MethodType {
                         }
                         else {
                             result.push_str(format!("{}[{}] {} {}", indention.get(), size, ty, name).as_str());
+                            run = false;
                         }
                         current_size += 1;
                     }
