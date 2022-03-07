@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "IL-Writer"
+name = "il_writer"
 version = "0.1.0"

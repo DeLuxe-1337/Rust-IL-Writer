@@ -83,7 +83,7 @@ impl IL {
 
         return ctype;
     }
-    pub fn method(&mut self, name: &str, visibility: MethodVisType) -> MethodType {
+    pub fn method(&mut self, name: &str, visibility: MethodVisType, class: ClassType) -> MethodType {
         let ctype = MethodType {
             vis: visibility,
             name: String::from(name),
@@ -95,6 +95,7 @@ impl IL {
             managed: true,
             is_static: true,
             maxstack: 8,
+            path: format!("{}::{}", class.name, name),
         };
 
         return ctype;

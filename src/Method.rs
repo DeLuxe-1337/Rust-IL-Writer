@@ -21,6 +21,7 @@ pub struct MethodType {
     pub managed: bool,
     pub is_static: bool,
     pub maxstack: usize,
+    pub path: String,
 }
 
 impl Type for MethodType {

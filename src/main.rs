@@ -37,7 +37,7 @@ fn main() {
 
     let mut program_class = writer.class(vec!["Base", "Program"], Class::ClassVisType::Public);
 
-    let mut main_method = writer.method("Main", Method::MethodVisType::Public);
+    let mut main_method = writer.method("Main", Method::MethodVisType::Public, program_class.clone());
     main_method.entrypoint = true;
 
     writer.op(
