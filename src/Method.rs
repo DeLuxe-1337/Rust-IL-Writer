@@ -2,6 +2,7 @@ use super::Indention::*;
 use super::Writer::qwriter;
 
 use super::Type::*;
+use std::collections::HashMap;
 
 #[derive(Clone)]
 pub enum MethodVisType {
@@ -22,6 +23,7 @@ pub struct MethodType {
     pub is_static: bool,
     pub maxstack: usize,
     pub path: String,
+    pub locals: HashMap<String, (String, usize)>
 }
 
 impl Type for MethodType {
@@ -74,6 +76,27 @@ impl Type for MethodType {
 
         result.push_str(format!("{}.maxstack {}", indention.get(), self.maxstack).as_str());
 
+        if self.locals.len() > 0 {
+            result.push_str(format!("{}.locals init (", indention.get()).as_str());
+
+            indention.inc();
+
+            for (i, (name, (ty, size))) in self.locals.clone().into_iter().enumerate() {
+                if i < self.locals.len() - 1 {
+                    result.push_str(format!("{}[{}] {} {},", indention.get(), size, ty, name).as_str());
+                }
+                else {
+                    result.push_str(format!("{}[{}] {} {}", indention.get(), size, ty, name).as_str());
+                }
+            }
+
+            indention.dec();
+
+            result.push_str(format!("{})", indention.get()).as_str());
+
+            result.push("\n");
+        }
+
         let mut il_current: usize = 0;
 
         for i in self.body.iter_mut() {
@@ -87,6 +110,23 @@ impl Type for MethodType {
 
         result.push_str(format!("{}}}", indention.get()).as_str());
     }
+}
+
+pub enum LocalType {
+    Int32,
+}
+
+pub fn new_local(name: String, ty: LocalType, index: usize, meth: &mut MethodType) {
+    let mut type_string = String::new();
+    match ty {
+        LocalType::Int32 => type_string = "int32".to_string(),
+    }
+    
+    meth.locals.insert(name, (type_string, index));
+}
+
+pub fn get_local(name: &String, meth: &MethodType) -> (String, usize) {
+    return meth.locals.get(name).unwrap().clone();
 }
 
 pub fn mscorlibfn(name: &str, returntype: &str, args: Vec<&str>) -> String {

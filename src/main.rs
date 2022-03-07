@@ -54,6 +54,9 @@ fn main() {
 
     writer.op("ret", vec![], &mut main_method);
 
+    Method::new_local("based".to_string(), Method::LocalType::Int32, 0, &mut main_method);
+    Method::new_local("absolute".to_string(), Method::LocalType::Int32, 1, &mut main_method);
+
     program_class.body.push(Box::new(main_method.clone()));
 
     Class::emit_class(&mut program_class, &mut writer.result);

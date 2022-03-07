@@ -14,6 +14,11 @@
     .method public static void Main() cil managed {
         .entrypoint
         .maxstack 8
+        .locals init (
+            [1] int32 absolute,
+            [0] int32 based
+        )
+
         IL_0:    ldstr "Hello, World!"
         IL_1:    call void [mscorlib]System.Console::WriteLine(string)
         IL_2:    ret 

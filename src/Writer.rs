@@ -96,6 +96,7 @@ impl IL {
             is_static: true,
             maxstack: 8,
             path: format!("{}::{}", class.name, name),
+            locals: HashMap::new(),
         };
 
         return ctype;
